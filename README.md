@@ -2,6 +2,8 @@
 
 Python client for Infinispan over the Hotrod protocol, based on the C++ client core.
 
+This project uses the general concepts showed in [Hotswig](https://github.com/rigazilla/hotswig/). 
+
 ## Build ##
 Build prerequisites:
 
@@ -10,6 +12,8 @@ Build prerequisites:
 * g++ 8.3.1
 * Swig 3.0.12
 * Python 2.7
+
+_The closer your numbers are, the less the probability to have problems_
 
 ### Steps ###
 1. Place the infinispan-hotrod-cpp\*.rpm package in the `dl` folder. Two options for this:
@@ -40,6 +44,10 @@ This is an example of code:
     res=cache.get(key)
     print res.pop()
     manager.stop()
+
+Currently the APIs exposed by the client can only handle `UCharVector` key,value pair. User has two options for handling its own data type `UserDataType`:
+1. implement a conversion layer between `UserDataType` and the `UCharVector`
+2. extend the client to handle `UserDataType` directly.
 
 <a name="cppbuild"></a>
 ### Build the C++ Library
