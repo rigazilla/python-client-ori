@@ -35,12 +35,14 @@ swig_add_library(Infinispan
 	SOURCES swig/hotswig.i src/hotrod-facade.cpp)
 swig_link_libraries (Infinispan hotrod)
 
+
 include(ExternalProject)
 ExternalProject_Add(cppclient
   GIT_REPOSITORY    git@github.com:infinispan/cpp-client.git
   BUILD_COMMAND make hotrod 
   INSTALL_COMMAND ""
   PREFIX ${PROJECT_SOURCE_DIR}/build/cpp-client
+  CMAKE_ARGS -DNOENABLE_VALGRIND=$ENV{NOENABLE_VALGRIND} -DNOENABLE_INTERNAL_TESTING=$ENV{NOENABLE_INTERNAL_TESTING} -D=NOENABLE_SWIG_TESTING=$ENV{NOENABLE_SWIG_TESTING}
 )
 
 add_library(hotrod SHARED IMPORTED)
